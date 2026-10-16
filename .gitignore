@@ -1,0 +1,75 @@
+# =====================================================================
+# PawPetShop - Git Ignore Rules
+# =====================================================================
+
+# Build artifacts & Maven output
+target/
+build/
+dist/
+bin/
+out/
+*.class
+*.jar
+*.war
+*.ear
+*.nar
+*.zip
+*.tar.gz
+*.rar
+
+# Project backups & temporary archives
+pawmart_backup_*.zip
+*.bak
+*.tmp
+*.temp
+*.swp
+
+# NetBeans IDE private & build files
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+# Eclipse IDE
+.classpath
+.project
+.settings/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# Visual Studio Code
+.vscode/
+
+# Operating System temporary files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+
+# Logs & Runtime
+*.log
+logs/
+
+# Database & Environment Secrets
+.env
+.env.local
+.env.*.local
+*.secret
+pawmart_db.properties
+!pawmart_db.properties.example
+
+# Reference scratch & design mockups
+reference_image.webp
+reference_add_pet_supplies.jpg
+scratch/

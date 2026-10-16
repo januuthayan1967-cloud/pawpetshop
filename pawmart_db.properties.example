@@ -1,0 +1,11 @@
+# =====================================================================
+# PawMart / PawPetShop - Database Configuration Example
+# Copy this file to 'pawmart_db.properties' to override default settings.
+# Default settings connect to local WampServer / XAMPP (port 3306, user 'root', empty password).
+# =====================================================================
+
+db.host=localhost
+db.port=3306
+db.name=pawmart_petshop
+db.user=root
+db.password=

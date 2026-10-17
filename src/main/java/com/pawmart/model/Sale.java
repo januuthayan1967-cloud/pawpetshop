@@ -17,6 +17,8 @@ public class Sale {
     private BigDecimal discountAmount;
     private BigDecimal grandTotal;
     private String paymentMethod; // 'CASH', 'CREDIT_CARD', 'DEBIT_CARD', 'MOBILE_PAY'
+    private BigDecimal amountReceived;
+    private BigDecimal changeAmount;
     private Timestamp createdAt;
     private List<SaleItem> items = new ArrayList<>();
 
@@ -102,6 +104,22 @@ public class Sale {
 
     public void setPaymentMethod(String paymentMethod) {
         this.paymentMethod = paymentMethod;
+    }
+
+    public BigDecimal getAmountReceived() {
+        return amountReceived;
+    }
+
+    public void setAmountReceived(BigDecimal amountReceived) {
+        this.amountReceived = amountReceived;
+    }
+
+    public BigDecimal getChangeAmount() {
+        return changeAmount;
+    }
+
+    public void setChangeAmount(BigDecimal changeAmount) {
+        this.changeAmount = changeAmount;
     }
 
     public Timestamp getCreatedAt() {

@@ -53,7 +53,7 @@
               <Color blue="19" green="64" red="f2" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="&#x1f43e;"/>
+            <Property name="text" type="java.lang.String" value=""/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -313,7 +313,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="&#x1f4be; Save Pet Supply"/>
+            <Property name="text" type="java.lang.String" value="Save Pet Supply"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddProductActionPerformed"/>
@@ -335,7 +335,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="5c" green="4c" red="0f" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="&#x1f9f9; Clear Fields"/>
+            <Property name="text" type="java.lang.String" value="Clear Form"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnClearFormActionPerformed"/>
@@ -357,7 +357,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="&#x2b05; Back"/>
+            <Property name="text" type="java.lang.String" value="Back to Dashboard"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBackActionPerformed"/>

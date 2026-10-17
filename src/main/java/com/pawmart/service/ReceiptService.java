@@ -46,8 +46,8 @@ public class ReceiptService {
         sb.append("========================================================\n");
         sb.append(String.format(" Receipt No : %-40s\n", sale.getReceiptNumber()));
         sb.append(String.format(" Date/Time  : %-40s\n", dateStr));
-        sb.append(String.format(" Cashier    : %-40s\n", sale.getCashierName() != null ? sale.getCashierName() : "Store Staff"));
-        sb.append(String.format(" Payment    : %-40s\n", sale.getPaymentMethod()));
+        sb.append(String.format(" Cashier        : %-35s\n", sale.getCashierName() != null ? sale.getCashierName() : "Store Staff"));
+        sb.append(String.format(" Payment Method : %-35s\n", com.pawmart.ui.theme.PawMartTheme.formatPaymentMethod(sale.getPaymentMethod())));
         sb.append("--------------------------------------------------------\n");
         sb.append(String.format(" %-26s %5s %9s %10s\n", "Item", "Qty", "Price", "Total"));
         sb.append("--------------------------------------------------------\n");
@@ -68,6 +68,12 @@ public class ReceiptService {
         sb.append(String.format(" Discount                                     -$%8.2f\n", sale.getDiscountAmount()));
         sb.append("========================================================\n");
         sb.append(String.format(" GRAND TOTAL                                   $%8.2f\n", sale.getGrandTotal()));
+        if ("CASH".equalsIgnoreCase(sale.getPaymentMethod()) && sale.getAmountReceived() != null) {
+            sb.append(String.format(" Cash Tendered                                 $%8.2f\n", sale.getAmountReceived()));
+            if (sale.getChangeAmount() != null) {
+                sb.append(String.format(" Change Due                                    $%8.2f\n", sale.getChangeAmount()));
+            }
+        }
         sb.append("========================================================\n");
         sb.append("             Thank you for shopping at PawMart!         \n");
         sb.append("               Woofs, Purrs & Warm Tails!               \n");
@@ -119,7 +125,7 @@ public class ReceiptService {
         addMetaCell(metaTable, "Receipt No: " + sale.getReceiptNumber(), bodyFont, Element.ALIGN_LEFT);
         addMetaCell(metaTable, "Date: " + dateStr, bodyFont, Element.ALIGN_RIGHT);
         addMetaCell(metaTable, "Cashier: " + (sale.getCashierName() != null ? sale.getCashierName() : "Store Staff"), bodyFont, Element.ALIGN_LEFT);
-        addMetaCell(metaTable, "Payment: " + sale.getPaymentMethod(), bodyFont, Element.ALIGN_RIGHT);
+        addMetaCell(metaTable, "Payment: " + com.pawmart.ui.theme.PawMartTheme.formatPaymentMethod(sale.getPaymentMethod()), bodyFont, Element.ALIGN_RIGHT);
 
         document.add(metaTable);
 
@@ -164,6 +170,15 @@ public class ReceiptService {
 
         addMetaCell(totalsTable, "GRAND TOTAL:", totalFont, Element.ALIGN_RIGHT);
         addMetaCell(totalsTable, "$" + sale.getGrandTotal(), totalFont, Element.ALIGN_RIGHT);
+
+        if ("CASH".equalsIgnoreCase(sale.getPaymentMethod()) && sale.getAmountReceived() != null) {
+            addMetaCell(totalsTable, "Cash Tendered:", boldFont, Element.ALIGN_RIGHT);
+            addMetaCell(totalsTable, "$" + sale.getAmountReceived(), boldFont, Element.ALIGN_RIGHT);
+            if (sale.getChangeAmount() != null) {
+                addMetaCell(totalsTable, "Change Due:", boldFont, Element.ALIGN_RIGHT);
+                addMetaCell(totalsTable, "$" + sale.getChangeAmount(), boldFont, Element.ALIGN_RIGHT);
+            }
+        }
 
         document.add(totalsTable);
 

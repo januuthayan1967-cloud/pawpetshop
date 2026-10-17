@@ -30,6 +30,10 @@ public class Dashboard extends javax.swing.JFrame {
         PawMartTheme.applyScaledBackground(lblBackground, "/images/backgrounds/cashier_dashboard_background.jpg");
         lblBackground.setBounds(0, 0, 1060, 680);
 
+        // Paw vector brand logo
+        lblBrandLogo.setText("");
+        lblBrandLogo.setIcon(PawMartTheme.createPawIcon(36, 36, PawMartTheme.ORANGE_ACCENT));
+
         // Visual Translucent Cards
         PawMartTheme.styleStatCard(cardTotalItems, PawMartTheme.CARD_BORDER);
         PawMartTheme.styleStatCard(cardLowStock, PawMartTheme.ORANGE_ACCENT);
@@ -148,7 +152,7 @@ public class Dashboard extends javax.swing.JFrame {
         lblBrandLogo.setFont(new java.awt.Font("Segoe UI Emoji", 1, 36)); // NOI18N
         lblBrandLogo.setForeground(new java.awt.Color(242, 100, 25));
         lblBrandLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblBrandLogo.setText("🐾");
+        lblBrandLogo.setText("");
         sidebarPanel.add(lblBrandLogo);
         lblBrandLogo.setBounds(10, 20, 220, 40);
 
@@ -169,7 +173,7 @@ public class Dashboard extends javax.swing.JFrame {
         btnNavPOS.setBackground(new java.awt.Color(5, 150, 105));
         btnNavPOS.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         btnNavPOS.setForeground(new java.awt.Color(255, 255, 255));
-        btnNavPOS.setText("🛒  Launch POS Billing");
+        btnNavPOS.setText("Launch POS Billing");
         btnNavPOS.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
         btnNavPOS.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -180,7 +184,7 @@ public class Dashboard extends javax.swing.JFrame {
         btnNavPOS.setBounds(15, 130, 210, 42);
 
         btnNavSearch.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
-        btnNavSearch.setText("🔍  Search Pet Supplies");
+        btnNavSearch.setText("Search Pet Supplies");
         btnNavSearch.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
         btnNavSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -191,7 +195,7 @@ public class Dashboard extends javax.swing.JFrame {
         btnNavSearch.setBounds(15, 185, 210, 40);
 
         btnNavView.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
-        btnNavView.setText("📋  View Supplies Catalog");
+        btnNavView.setText("View Supplies Catalog");
         btnNavView.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
         btnNavView.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -204,7 +208,7 @@ public class Dashboard extends javax.swing.JFrame {
         btnLogout.setBackground(new java.awt.Color(242, 100, 25));
         btnLogout.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         btnLogout.setForeground(new java.awt.Color(255, 255, 255));
-        btnLogout.setText("🚪  Logout");
+        btnLogout.setText("Logout");
         btnLogout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLogoutActionPerformed(evt);
@@ -249,7 +253,7 @@ public class Dashboard extends javax.swing.JFrame {
         btnLaunchHero.setBackground(new java.awt.Color(5, 150, 105));
         btnLaunchHero.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnLaunchHero.setForeground(new java.awt.Color(255, 255, 255));
-        btnLaunchHero.setText("⚡ Open POS Billing");
+        btnLaunchHero.setText("Open POS Billing");
         btnLaunchHero.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLaunchHeroActionPerformed(evt);
@@ -327,7 +331,7 @@ public class Dashboard extends javax.swing.JFrame {
         btnRefreshCatalog.setBackground(new java.awt.Color(5, 150, 105));
         btnRefreshCatalog.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnRefreshCatalog.setForeground(new java.awt.Color(255, 255, 255));
-        btnRefreshCatalog.setText("🔄 Refresh");
+        btnRefreshCatalog.setText("Refresh");
         btnRefreshCatalog.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRefreshCatalogActionPerformed(evt);

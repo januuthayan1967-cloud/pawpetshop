@@ -147,6 +147,32 @@ public class PawMartTheme {
                 updateIcon.run();
             }
         });
+
+        // Automatically adapt to parent resizing (e.g. 1366x768, 1440x900, 1920x1080)
+        label.addHierarchyListener(e -> {
+            Container parent = label.getParent();
+            if (parent != null) {
+                try {
+                    parent.setComponentZOrder(label, parent.getComponentCount() - 1);
+                } catch (Exception ignored) {}
+
+                parent.addComponentListener(new ComponentAdapter() {
+                    @Override
+                    public void componentResized(ComponentEvent ce) {
+                        int pw = parent.getWidth();
+                        int ph = parent.getHeight();
+                        if (pw > 0 && ph > 0) {
+                            label.setBounds(0, 0, pw, ph);
+                        }
+                    }
+                });
+                int pw = parent.getWidth();
+                int ph = parent.getHeight();
+                if (pw > 0 && ph > 0) {
+                    label.setBounds(0, 0, pw, ph);
+                }
+            }
+        });
     }
 
     /**
@@ -223,13 +249,17 @@ public class PawMartTheme {
     public static void styleTranslucentCard(JPanel panel, int radius, Color bgColor, Color borderColor) {
         if (panel == null) return;
         panel.setOpaque(false);
-        String bgHex = toHex(bgColor != null ? bgColor : BG_CARD_TRANSLUCENT);
-        String borderHex = toHex(borderColor != null ? borderColor : CARD_BORDER);
+        Color bg = bgColor != null ? bgColor : BG_CARD_TRANSLUCENT;
+        Color border = borderColor != null ? borderColor : CARD_BORDER;
+        panel.setBackground(bg);
+        String bgHex = toHex(bg);
+        String borderHex = toHex(border);
         panel.putClientProperty(FlatClientProperties.STYLE,
                 "arc: " + radius + "; " +
                 "background: #" + bgHex + "; " +
-                "border: 1,#" + borderHex + ",1," + radius
+                "border: 1,1,1,1,#" + borderHex
         );
+        panel.setBorder(new javax.swing.border.LineBorder(border, 1, true));
     }
 
     /**
@@ -245,12 +275,47 @@ public class PawMartTheme {
     public static void styleStatCard(JPanel card, Color accentColor) {
         if (card == null) return;
         card.setOpaque(false);
-        String borderHex = toHex(accentColor != null ? accentColor : CARD_BORDER);
+        Color border = accentColor != null ? accentColor : CARD_BORDER;
+        Color bg = new Color(255, 255, 255, 240);
+        card.setBackground(bg);
+        String borderHex = toHex(border);
         card.putClientProperty(FlatClientProperties.STYLE,
                 "arc: 16; " +
                 "background: #FFFFFFEE; " +
-                "border: 1,#" + borderHex + ",1,16"
+                "border: 1,1,1,1,#" + borderHex
         );
+        card.setBorder(new javax.swing.border.LineBorder(border, 1, true));
+    }
+
+    /**
+     * Formats database payment method enum to user-friendly label.
+     */
+    public static String formatPaymentMethod(String dbMethod) {
+        if (dbMethod == null) return "Cash";
+        switch (dbMethod.toUpperCase().trim()) {
+            case "CREDIT_CARD": return "Credit Card";
+            case "DEBIT_CARD": return "Debit Card";
+            case "MOBILE_PAY": return "Mobile Payment";
+            case "CASH":
+            default: return "Cash";
+        }
+    }
+
+    /**
+     * Maps user-facing payment method label to database enum string.
+     */
+    public static String toDbPaymentMethod(String displayMethod) {
+        if (displayMethod == null) return "CASH";
+        switch (displayMethod.toLowerCase().trim()) {
+            case "credit card":
+            case "credit_card": return "CREDIT_CARD";
+            case "debit card":
+            case "debit_card": return "DEBIT_CARD";
+            case "mobile payment":
+            case "mobile_pay": return "MOBILE_PAY";
+            case "cash":
+            default: return "CASH";
+        }
     }
 
     /**
@@ -323,5 +388,13 @@ public class PawMartTheme {
                 BorderFactory.createLineBorder(CARD_BORDER, 1),
                 BorderFactory.createEmptyBorder(16, 16, 16, 16)
         );
+    }
+
+    public static javax.swing.Icon createPawIcon(int size, Color color) {
+        return com.pawmart.ui.components.PawIconRenderer.createPawIcon(size, color);
+    }
+
+    public static javax.swing.Icon createPawIcon(int width, int height, Color color) {
+        return com.pawmart.ui.components.PawIconRenderer.createPawIcon(Math.min(width, height), color);
     }
 }

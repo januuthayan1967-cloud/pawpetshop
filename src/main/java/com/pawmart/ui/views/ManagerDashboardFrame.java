@@ -401,7 +401,7 @@ public class ManagerDashboardFrame extends JFrame {
                                     s.getReceiptNumber(),
                                     s.getCashierName(),
                                     "$" + s.getGrandTotal(),
-                                    s.getPaymentMethod(),
+                                    PawMartTheme.formatPaymentMethod(s.getPaymentMethod()),
                                     s.getCreatedAt() != null ? DATE_FMT.format(s.getCreatedAt()) : ""
                             });
                         }
@@ -1174,7 +1174,7 @@ public class ManagerDashboardFrame extends JFrame {
                                 "$" + s.getSubtotal(),
                                 "-$" + s.getDiscountAmount(),
                                 "$" + s.getGrandTotal(),
-                                s.getPaymentMethod(),
+                                PawMartTheme.formatPaymentMethod(s.getPaymentMethod()),
                                 s.getCreatedAt() != null ? DATE_FMT.format(s.getCreatedAt()) : ""
                         });
                     }

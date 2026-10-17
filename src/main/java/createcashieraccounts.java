@@ -28,6 +28,9 @@ public class createcashieraccounts extends javax.swing.JFrame {
         PawMartTheme.styleTranslucentCard(formCard, 22, new java.awt.Color(255, 255, 255, 238), PawMartTheme.CARD_BORDER);
         formCard.setBounds(170, 105, 720, 480);
 
+        lblHeaderIcon.setIcon(PawMartTheme.createPawIcon(32, 32, PawMartTheme.ORANGE_ACCENT));
+        lblHeaderIcon.setText("");
+
         // Buttons Styling
         PawMartTheme.styleButton(btnCreateAccount, PawMartTheme.EMERALD_PRIMARY, java.awt.Color.WHITE, 12);
         PawMartTheme.styleButton(btnClearForm, java.awt.Color.WHITE, PawMartTheme.TEAL_PRIMARY, 12);
@@ -80,7 +83,7 @@ public class createcashieraccounts extends javax.swing.JFrame {
         lblHeaderIcon.setFont(new java.awt.Font("Segoe UI Emoji", 1, 28)); // NOI18N
         lblHeaderIcon.setForeground(new java.awt.Color(242, 100, 25));
         lblHeaderIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblHeaderIcon.setText("👤");
+        lblHeaderIcon.setText("");
         headerPanel.add(lblHeaderIcon);
         lblHeaderIcon.setBounds(25, 18, 50, 48);
 
@@ -180,14 +183,14 @@ public class createcashieraccounts extends javax.swing.JFrame {
         lblStatusMessage.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblStatusMessage.setForeground(new java.awt.Color(5, 150, 105));
         lblStatusMessage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblStatusMessage.setText("🔒 Passwords are automatically secured with BCrypt (12 rounds)");
+        lblStatusMessage.setText("Passwords are automatically secured with BCrypt (12 rounds)");
         formCard.add(lblStatusMessage);
         lblStatusMessage.setBounds(35, 250, 650, 24);
 
         btnCreateAccount.setBackground(new java.awt.Color(5, 150, 105));
         btnCreateAccount.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnCreateAccount.setForeground(new java.awt.Color(255, 255, 255));
-        btnCreateAccount.setText("👤 Create Cashier Account");
+        btnCreateAccount.setText("Create Cashier Account");
         btnCreateAccount.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCreateAccountActionPerformed(evt);
@@ -199,7 +202,7 @@ public class createcashieraccounts extends javax.swing.JFrame {
         btnClearForm.setBackground(new java.awt.Color(255, 255, 255));
         btnClearForm.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         btnClearForm.setForeground(new java.awt.Color(15, 76, 92));
-        btnClearForm.setText("🧹 Clear Fields");
+        btnClearForm.setText("Clear Form");
         btnClearForm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnClearFormActionPerformed(evt);
@@ -211,7 +214,7 @@ public class createcashieraccounts extends javax.swing.JFrame {
         btnBack.setBackground(new java.awt.Color(242, 100, 25));
         btnBack.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnBack.setForeground(new java.awt.Color(255, 255, 255));
-        btnBack.setText("⬅ Back to Manager");
+        btnBack.setText("Back to Manager");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBackActionPerformed(evt);

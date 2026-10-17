@@ -29,6 +29,10 @@ public class Managerpage extends javax.swing.JFrame {
         PawMartTheme.applyScaledBackground(lblBackground, "/images/backgrounds/manager_dashboard_background.jpg");
         lblBackground.setBounds(0, 0, 1060, 680);
 
+        // Paw vector brand logo
+        lblBrandLogo.setText("");
+        lblBrandLogo.setIcon(PawMartTheme.createPawIcon(36, 36, PawMartTheme.ORANGE_ACCENT));
+
         // Visual Translucent Stat Cards
         PawMartTheme.styleStatCard(cardProducts, PawMartTheme.CARD_BORDER);
         PawMartTheme.styleStatCard(cardLowStock, PawMartTheme.ORANGE_ACCENT);
@@ -113,7 +117,7 @@ public class Managerpage extends javax.swing.JFrame {
             model.setRowCount(0);
 
             for (Product p : products) {
-                String status = p.getQuantity() <= p.getLowStockThreshold() ? "⚠ Low Stock" : "✓ In Stock";
+                String status = p.getQuantity() <= p.getLowStockThreshold() ? "Low Stock" : "In Stock";
                 model.addRow(new Object[]{
                     p.getId(),
                     p.getName(),
@@ -184,7 +188,7 @@ public class Managerpage extends javax.swing.JFrame {
         lblBrandLogo.setFont(new java.awt.Font("Segoe UI Emoji", 1, 36)); // NOI18N
         lblBrandLogo.setForeground(new java.awt.Color(242, 100, 25));
         lblBrandLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblBrandLogo.setText("🐾");
+        lblBrandLogo.setText("");
         sidebarPanel.add(lblBrandLogo);
         lblBrandLogo.setBounds(10, 20, 220, 40);
 
@@ -203,7 +207,7 @@ public class Managerpage extends javax.swing.JFrame {
         lblBrandSub.setBounds(10, 90, 220, 20);
 
         btnNavAddProduct.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
-        btnNavAddProduct.setText("➕  Add Pet Supplies");
+        btnNavAddProduct.setText("Add Pet Supplies");
         btnNavAddProduct.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
         btnNavAddProduct.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -214,7 +218,7 @@ public class Managerpage extends javax.swing.JFrame {
         btnNavAddProduct.setBounds(15, 130, 210, 40);
 
         btnNavSearch.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
-        btnNavSearch.setText("🔍  Search Pet Supplies");
+        btnNavSearch.setText("Search Pet Supplies");
         btnNavSearch.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
         btnNavSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -225,7 +229,7 @@ public class Managerpage extends javax.swing.JFrame {
         btnNavSearch.setBounds(15, 180, 210, 40);
 
         btnNavViewSupplies.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
-        btnNavViewSupplies.setText("📋  View All Supplies");
+        btnNavViewSupplies.setText("View All Supplies");
         btnNavViewSupplies.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
         btnNavViewSupplies.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -236,7 +240,7 @@ public class Managerpage extends javax.swing.JFrame {
         btnNavViewSupplies.setBounds(15, 230, 210, 40);
 
         btnNavCashiers.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
-        btnNavCashiers.setText("👤  Cashier Accounts");
+        btnNavCashiers.setText("Cashier Accounts");
         btnNavCashiers.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
         btnNavCashiers.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -249,7 +253,7 @@ public class Managerpage extends javax.swing.JFrame {
         btnNavPOS.setBackground(new java.awt.Color(5, 150, 105));
         btnNavPOS.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         btnNavPOS.setForeground(new java.awt.Color(255, 255, 255));
-        btnNavPOS.setText("⚡  Full POS Terminal");
+        btnNavPOS.setText("Full POS Terminal");
         btnNavPOS.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
         btnNavPOS.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -260,7 +264,7 @@ public class Managerpage extends javax.swing.JFrame {
         btnNavPOS.setBounds(15, 330, 210, 40);
 
         btnNavReports.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
-        btnNavReports.setText("📊  Analytics & Reports");
+        btnNavReports.setText("Analytics & Reports");
         btnNavReports.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
         btnNavReports.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -273,7 +277,7 @@ public class Managerpage extends javax.swing.JFrame {
         btnLogout.setBackground(new java.awt.Color(242, 100, 25));
         btnLogout.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         btnLogout.setForeground(new java.awt.Color(255, 255, 255));
-        btnLogout.setText("🚪  Logout");
+        btnLogout.setText("Logout");
         btnLogout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLogoutActionPerformed(evt);
@@ -302,7 +306,7 @@ public class Managerpage extends javax.swing.JFrame {
         btnRefreshData.setBackground(new java.awt.Color(5, 150, 105));
         btnRefreshData.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnRefreshData.setForeground(new java.awt.Color(255, 255, 255));
-        btnRefreshData.setText("🔄 Refresh");
+        btnRefreshData.setText("Refresh");
         btnRefreshData.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRefreshDataActionPerformed(evt);
@@ -422,7 +426,7 @@ public class Managerpage extends javax.swing.JFrame {
         btnQuickAdd.setBackground(new java.awt.Color(5, 150, 105));
         btnQuickAdd.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         btnQuickAdd.setForeground(new java.awt.Color(255, 255, 255));
-        btnQuickAdd.setText("➕ Add Product");
+        btnQuickAdd.setText("Add Product");
         btnQuickAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnQuickAddActionPerformed(evt);
@@ -434,7 +438,7 @@ public class Managerpage extends javax.swing.JFrame {
         btnQuickSearch.setBackground(new java.awt.Color(255, 255, 255));
         btnQuickSearch.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         btnQuickSearch.setForeground(new java.awt.Color(15, 76, 92));
-        btnQuickSearch.setText("🔍 Search Supplies");
+        btnQuickSearch.setText("Search Supplies");
         btnQuickSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnQuickSearchActionPerformed(evt);
@@ -446,7 +450,7 @@ public class Managerpage extends javax.swing.JFrame {
         btnQuickCashier.setBackground(new java.awt.Color(255, 255, 255));
         btnQuickCashier.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         btnQuickCashier.setForeground(new java.awt.Color(15, 76, 92));
-        btnQuickCashier.setText("👤 New Cashier");
+        btnQuickCashier.setText("New Cashier");
         btnQuickCashier.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnQuickCashierActionPerformed(evt);

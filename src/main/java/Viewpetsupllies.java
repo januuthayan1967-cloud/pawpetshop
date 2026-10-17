@@ -28,13 +28,23 @@ public class Viewpetsupllies extends javax.swing.JFrame {
         PawMartTheme.applyScaledBackground(lblBackground, "/images/backgrounds/view_pet_supplies_background.jpg");
         lblBackground.setBounds(0, 0, 1060, 680);
 
-        // Layout bounds
-        scrollCatalog.setBounds(30, 95, 1000, 490);
-        btnBack.setBounds(30, 600, 150, 38);
-        btnRefresh.setBounds(190, 600, 150, 38);
-        lblTotalCount.setBounds(360, 600, 300, 38);
+        // Translucent summary card styling & layout
+        PawMartTheme.styleTranslucentCard(summaryBar, 16, new java.awt.Color(255, 255, 255, 240), PawMartTheme.CARD_BORDER);
+        summaryBar.setBounds(30, 95, 1000, 60);
+        lblCatalogInfo.setBounds(20, 18, 220, 24);
+        lblTotalCount.setBounds(250, 18, 300, 24);
+        btnRefresh.setBounds(840, 12, 140, 36);
 
-        // Buttons Styling
+        // Catalog Table and Back button bounds
+        scrollCatalog.setBounds(30, 168, 1000, 420);
+        btnBack.setBounds(30, 600, 220, 40);
+
+        // Clean button styling and labels
+        btnRefresh.setText("Refresh");
+        btnBack.setText("Back to Dashboard");
+        lblHeaderIcon.setText("");
+        lblHeaderIcon.setIcon(com.pawmart.ui.components.PawIconRenderer.createPawIcon(28, PawMartTheme.ORANGE_ACCENT));
+
         PawMartTheme.styleButton(btnRefresh, PawMartTheme.EMERALD_PRIMARY, java.awt.Color.WHITE, 12);
         PawMartTheme.styleButton(btnBack, PawMartTheme.ORANGE_ACCENT, java.awt.Color.WHITE, 12);
 
@@ -91,7 +101,7 @@ public class Viewpetsupllies extends javax.swing.JFrame {
             model.setRowCount(0);
 
             for (Product p : products) {
-                String status = p.getQuantity() <= p.getLowStockThreshold() ? "⚠ Low Stock" : "✓ In Stock";
+                String status = p.getQuantity() <= p.getLowStockThreshold() ? "Low Stock" : "In Stock";
                 model.addRow(new Object[]{
                     p.getId(),
                     p.getName(),

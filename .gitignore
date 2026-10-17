@@ -23,6 +23,7 @@ pawmart_backup_*.zip
 *.tmp
 *.temp
 *.swp
+cp.txt
 
 # NetBeans IDE private & build files
 nbproject/private/

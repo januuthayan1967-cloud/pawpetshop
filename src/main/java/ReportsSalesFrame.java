@@ -43,8 +43,12 @@ public class ReportsSalesFrame extends javax.swing.JFrame {
 
         // Layout bounds
         scrollSales.setBounds(30, 180, 1000, 410);
-        btnViewReceipt.setBounds(30, 600, 190, 38);
-        btnBack.setBounds(230, 600, 150, 38);
+        btnViewReceipt.setBounds(30, 600, 260, 38);
+        btnBack.setBounds(300, 600, 180, 38);
+
+        // Paw vector brand icon
+        lblHeaderIcon.setText("");
+        lblHeaderIcon.setIcon(PawMartTheme.createPawIcon(28, 28, PawMartTheme.ORANGE_ACCENT));
 
         // Buttons Styling
         PawMartTheme.styleButton(btnRefreshSales, PawMartTheme.EMERALD_PRIMARY, java.awt.Color.WHITE, 10);
@@ -92,13 +96,14 @@ public class ReportsSalesFrame extends javax.swing.JFrame {
     }
 
     private void filterAndDisplaySales() {
-        String selectedMethod = (String) comboPaymentFilter.getSelectedItem();
+        String selectedFilter = (String) comboPaymentFilter.getSelectedItem();
+        String filterDbCode = PawMartTheme.toDbPaymentMethod(selectedFilter);
         DefaultTableModel model = (DefaultTableModel) tblSales.getModel();
         model.setRowCount(0);
 
         for (Sale s : currentSales) {
-            if (selectedMethod != null && !"All Payment Methods".equalsIgnoreCase(selectedMethod)) {
-                if (!selectedMethod.equalsIgnoreCase(s.getPaymentMethod())) {
+            if (selectedFilter != null && !"All Payment Methods".equalsIgnoreCase(selectedFilter)) {
+                if (!filterDbCode.equalsIgnoreCase(s.getPaymentMethod())) {
                     continue;
                 }
             }
@@ -110,7 +115,7 @@ public class ReportsSalesFrame extends javax.swing.JFrame {
                 String.format("$%.2f", s.getSubtotal().doubleValue()),
                 String.format("$%.2f", s.getDiscountAmount().doubleValue()),
                 String.format("$%.2f", s.getGrandTotal().doubleValue()),
-                s.getPaymentMethod()
+                PawMartTheme.formatPaymentMethod(s.getPaymentMethod())
             });
         }
     }
@@ -154,7 +159,7 @@ public class ReportsSalesFrame extends javax.swing.JFrame {
         lblHeaderIcon.setFont(new java.awt.Font("Segoe UI Emoji", 1, 28)); // NOI18N
         lblHeaderIcon.setForeground(new java.awt.Color(242, 100, 25));
         lblHeaderIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblHeaderIcon.setText("📊");
+        lblHeaderIcon.setText("");
         headerPanel.add(lblHeaderIcon);
         lblHeaderIcon.setBounds(25, 18, 50, 48);
 
@@ -208,7 +213,7 @@ public class ReportsSalesFrame extends javax.swing.JFrame {
         lblCardMethodTitle.setBounds(455, 12, 180, 16);
 
         comboPaymentFilter.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        comboPaymentFilter.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All Payment Methods", "CASH", "CREDIT_CARD", "DEBIT_CARD", "MOBILE_PAY" }));
+        comboPaymentFilter.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All Payment Methods", "Cash", "Credit Card", "Debit Card", "Mobile Payment" }));
         comboPaymentFilter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboPaymentFilterActionPerformed(evt);
@@ -220,7 +225,7 @@ public class ReportsSalesFrame extends javax.swing.JFrame {
         btnRefreshSales.setBackground(new java.awt.Color(5, 150, 105));
         btnRefreshSales.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         btnRefreshSales.setForeground(new java.awt.Color(255, 255, 255));
-        btnRefreshSales.setText("🔄 Refresh");
+        btnRefreshSales.setText("Refresh");
         btnRefreshSales.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRefreshSalesActionPerformed(evt);
@@ -261,7 +266,7 @@ public class ReportsSalesFrame extends javax.swing.JFrame {
         btnViewReceipt.setBackground(new java.awt.Color(5, 150, 105));
         btnViewReceipt.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnViewReceipt.setForeground(new java.awt.Color(255, 255, 255));
-        btnViewReceipt.setText("📄 View / Print Selected Receipt");
+        btnViewReceipt.setText("View / Print Selected Receipt");
         btnViewReceipt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnViewReceiptActionPerformed(evt);
@@ -273,7 +278,7 @@ public class ReportsSalesFrame extends javax.swing.JFrame {
         btnBack.setBackground(new java.awt.Color(242, 100, 25));
         btnBack.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnBack.setForeground(new java.awt.Color(255, 255, 255));
-        btnBack.setText("⬅ Back to Dashboard");
+        btnBack.setText("Back to Dashboard");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBackActionPerformed(evt);

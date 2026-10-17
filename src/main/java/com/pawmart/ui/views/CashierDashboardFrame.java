@@ -794,7 +794,7 @@ public class CashierDashboardFrame extends JFrame {
                                 "$" + s.getSubtotal(),
                                 "-$" + s.getDiscountAmount(),
                                 "$" + s.getGrandTotal(),
-                                s.getPaymentMethod(),
+                                PawMartTheme.formatPaymentMethod(s.getPaymentMethod()),
                                 s.getCreatedAt() != null ? DATE_FMT.format(s.getCreatedAt()) : ""
                         });
                     }

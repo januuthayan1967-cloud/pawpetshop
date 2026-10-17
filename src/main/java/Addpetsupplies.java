@@ -33,6 +33,9 @@ public class Addpetsupplies extends javax.swing.JFrame {
         PawMartTheme.styleTranslucentCard(formCard, 22, new java.awt.Color(255, 255, 255, 238), PawMartTheme.CARD_BORDER);
         formCard.setBounds(170, 115, 720, 440);
 
+        lblHeaderIcon.setIcon(PawMartTheme.createPawIcon(32, 32, PawMartTheme.ORANGE_ACCENT));
+        lblHeaderIcon.setText("");
+
         // Styled action buttons
         PawMartTheme.styleButton(btnAddProduct, PawMartTheme.EMERALD_PRIMARY, java.awt.Color.WHITE, 12);
         PawMartTheme.styleButton(btnClearForm, java.awt.Color.WHITE, PawMartTheme.TEAL_PRIMARY, 12);
@@ -99,7 +102,7 @@ public class Addpetsupplies extends javax.swing.JFrame {
         lblHeaderIcon.setFont(new java.awt.Font("Segoe UI Emoji", 1, 28)); // NOI18N
         lblHeaderIcon.setForeground(new java.awt.Color(242, 100, 25));
         lblHeaderIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblHeaderIcon.setText("🐾");
+        lblHeaderIcon.setText("");
         headerPanel.add(lblHeaderIcon);
         lblHeaderIcon.setBounds(25, 18, 50, 48);
 
@@ -187,7 +190,7 @@ public class Addpetsupplies extends javax.swing.JFrame {
         btnAddProduct.setBackground(new java.awt.Color(5, 150, 105));
         btnAddProduct.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnAddProduct.setForeground(new java.awt.Color(255, 255, 255));
-        btnAddProduct.setText("💾 Save Pet Supply");
+        btnAddProduct.setText("Save Pet Supply");
         btnAddProduct.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddProductActionPerformed(evt);
@@ -199,7 +202,7 @@ public class Addpetsupplies extends javax.swing.JFrame {
         btnClearForm.setBackground(new java.awt.Color(255, 255, 255));
         btnClearForm.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         btnClearForm.setForeground(new java.awt.Color(15, 76, 92));
-        btnClearForm.setText("🧹 Clear Fields");
+        btnClearForm.setText("Clear Form");
         btnClearForm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnClearFormActionPerformed(evt);
@@ -211,7 +214,7 @@ public class Addpetsupplies extends javax.swing.JFrame {
         btnBack.setBackground(new java.awt.Color(242, 100, 25));
         btnBack.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnBack.setForeground(new java.awt.Color(255, 255, 255));
-        btnBack.setText("⬅ Back");
+        btnBack.setText("Back to Dashboard");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBackActionPerformed(evt);

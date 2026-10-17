@@ -55,7 +55,7 @@
               <Color blue="19" green="64" red="f2" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="&#x1f43e;"/>
+            <Property name="text" type="java.lang.String" value=""/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -108,7 +108,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="&#x1f6d2;  Launch POS Billing"/>
+            <Property name="text" type="java.lang.String" value="Launch POS Billing"/>
             <Property name="horizontalAlignment" type="int" value="10"/>
           </Properties>
           <Events>
@@ -125,7 +125,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="13" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="&#x1f50d;  Search Pet Supplies"/>
+            <Property name="text" type="java.lang.String" value="Search Pet Supplies"/>
             <Property name="horizontalAlignment" type="int" value="10"/>
           </Properties>
           <Events>
@@ -142,7 +142,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="13" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="&#x1f4cb;  View Supplies Catalog"/>
+            <Property name="text" type="java.lang.String" value="View Supplies Catalog"/>
             <Property name="horizontalAlignment" type="int" value="10"/>
           </Properties>
           <Events>
@@ -165,7 +165,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="&#x1f6aa;  Logout"/>
+            <Property name="text" type="java.lang.String" value="Logout"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLogoutActionPerformed"/>
@@ -290,7 +290,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="&#x26a1; Open POS Billing"/>
+                <Property name="text" type="java.lang.String" value="Open POS Billing"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLaunchHeroActionPerformed"/>
@@ -501,7 +501,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="&#x1f504; Refresh"/>
+            <Property name="text" type="java.lang.String" value="Refresh"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRefreshCatalogActionPerformed"/>

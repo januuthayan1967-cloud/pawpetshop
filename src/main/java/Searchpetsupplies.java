@@ -37,8 +37,14 @@ public class Searchpetsupplies extends javax.swing.JFrame {
 
         // Table & Scroll bounds
         scrollSearchResults.setBounds(30, 175, 1000, 415);
-        btnBack.setBounds(30, 600, 150, 38);
-        lblResultCount.setBounds(200, 600, 400, 38);
+        btnBack.setBounds(30, 600, 190, 38);
+        lblResultCount.setBounds(240, 600, 500, 38);
+        lblResultCount.setForeground(java.awt.Color.WHITE);
+        lblResultCount.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 14));
+
+        // Paw vector brand icon
+        lblHeaderIcon.setText("");
+        lblHeaderIcon.setIcon(PawMartTheme.createPawIcon(28, 28, PawMartTheme.ORANGE_ACCENT));
 
         // Buttons Styling
         PawMartTheme.styleButton(btnSearch, PawMartTheme.EMERALD_PRIMARY, java.awt.Color.WHITE, 10);
@@ -126,7 +132,7 @@ public class Searchpetsupplies extends javax.swing.JFrame {
             model.setRowCount(0);
 
             for (Product p : results) {
-                String status = p.getQuantity() <= p.getLowStockThreshold() ? "⚠ Low Stock" : "✓ In Stock";
+                String status = p.getQuantity() <= p.getLowStockThreshold() ? "Low Stock" : "In Stock";
                 model.addRow(new Object[]{
                     p.getId(),
                     p.getName(),
@@ -180,7 +186,7 @@ public class Searchpetsupplies extends javax.swing.JFrame {
         lblHeaderIcon.setFont(new java.awt.Font("Segoe UI Emoji", 1, 28)); // NOI18N
         lblHeaderIcon.setForeground(new java.awt.Color(242, 100, 25));
         lblHeaderIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblHeaderIcon.setText("🐾");
+        lblHeaderIcon.setText("");
         headerPanel.add(lblHeaderIcon);
         lblHeaderIcon.setBounds(25, 18, 50, 48);
 
@@ -226,7 +232,7 @@ public class Searchpetsupplies extends javax.swing.JFrame {
         btnSearch.setBackground(new java.awt.Color(5, 150, 105));
         btnSearch.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         btnSearch.setForeground(new java.awt.Color(255, 255, 255));
-        btnSearch.setText("🔍 Search");
+        btnSearch.setText("Search");
         btnSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSearchActionPerformed(evt);
@@ -238,7 +244,7 @@ public class Searchpetsupplies extends javax.swing.JFrame {
         btnReset.setBackground(new java.awt.Color(255, 255, 255));
         btnReset.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         btnReset.setForeground(new java.awt.Color(15, 76, 92));
-        btnReset.setText("🔄 Show All");
+        btnReset.setText("Show All");
         btnReset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnResetActionPerformed(evt);
@@ -279,7 +285,7 @@ public class Searchpetsupplies extends javax.swing.JFrame {
         btnBack.setBackground(new java.awt.Color(242, 100, 25));
         btnBack.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnBack.setForeground(new java.awt.Color(255, 255, 255));
-        btnBack.setText("⬅ Back to Dashboard");
+        btnBack.setText("Back to Dashboard");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBackActionPerformed(evt);

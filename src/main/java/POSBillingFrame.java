@@ -40,6 +40,10 @@ public class POSBillingFrame extends javax.swing.JFrame {
         PawMartTheme.applyScaledBackground(lblBackground, "/images/backgrounds/pos_billing_background.jpg");
         lblBackground.setBounds(0, 0, 1140, 720);
 
+        // Paw vector brand icon
+        lblHeaderIcon.setText("");
+        lblHeaderIcon.setIcon(PawMartTheme.createPawIcon(28, 28, PawMartTheme.ORANGE_ACCENT));
+
         // Translucent cards
         PawMartTheme.styleTranslucentCard(catalogCard, 18, new java.awt.Color(255, 255, 255, 240), PawMartTheme.CARD_BORDER);
         PawMartTheme.styleTranslucentCard(cartCard, 18, new java.awt.Color(255, 255, 255, 240), PawMartTheme.CARD_BORDER);
@@ -54,6 +58,10 @@ public class POSBillingFrame extends javax.swing.JFrame {
 
         applyTableStyling();
         loadCatalog();
+
+        // Initial payment setup
+        comboPaymentMethod.setSelectedItem("Cash");
+        updateChangeCalculation();
     }
 
     private void applyTableStyling() {
@@ -109,11 +117,27 @@ public class POSBillingFrame extends javax.swing.JFrame {
         }
     }
 
+    private BigDecimal calculateSubtotal() {
+        BigDecimal subtotal = BigDecimal.ZERO;
+        for (CartItem item : cartItems) {
+            subtotal = subtotal.add(item.getLineTotal());
+        }
+        return subtotal.setScale(2, RoundingMode.HALF_UP);
+    }
+
+    private BigDecimal calculateTax(BigDecimal subtotal) {
+        return subtotal.multiply(new BigDecimal("0.08")).setScale(2, RoundingMode.HALF_UP);
+    }
+
+    private BigDecimal calculateGrandTotal() {
+        BigDecimal subtotal = calculateSubtotal();
+        return subtotal.add(calculateTax(subtotal)).setScale(2, RoundingMode.HALF_UP);
+    }
+
     private void updateCartDisplay() {
         DefaultTableModel model = (DefaultTableModel) tblCart.getModel();
         model.setRowCount(0);
 
-        BigDecimal subtotal = BigDecimal.ZERO;
         for (CartItem item : cartItems) {
             model.addRow(new Object[]{
                 item.getProduct().getName(),
@@ -121,15 +145,49 @@ public class POSBillingFrame extends javax.swing.JFrame {
                 item.getQuantity(),
                 String.format("$%.2f", item.getLineTotal().doubleValue())
             });
-            subtotal = subtotal.add(item.getLineTotal());
         }
 
-        BigDecimal tax = subtotal.multiply(new BigDecimal("0.08")).setScale(2, RoundingMode.HALF_UP);
+        BigDecimal subtotal = calculateSubtotal();
+        BigDecimal tax = calculateTax(subtotal);
         BigDecimal total = subtotal.add(tax);
 
         lblSubtotalVal.setText(String.format("$%.2f", subtotal.doubleValue()));
         lblTaxVal.setText(String.format("$%.2f", tax.doubleValue()));
         lblTotalVal.setText(String.format("$%.2f", total.doubleValue()));
+
+        updateChangeCalculation();
+    }
+
+    private void updateChangeCalculation() {
+        String method = (String) comboPaymentMethod.getSelectedItem();
+        if (!"Cash".equalsIgnoreCase(method)) {
+            lblChangeVal.setText("$0.00");
+            lblChangeVal.setForeground(PawMartTheme.TEXT_MUTED);
+            return;
+        }
+
+        BigDecimal total = calculateGrandTotal();
+        String text = txtCashReceived.getText().trim();
+        if (text.isEmpty()) {
+            lblChangeVal.setText("$0.00");
+            lblChangeVal.setForeground(PawMartTheme.TEXT_DARK);
+            return;
+        }
+
+        try {
+            BigDecimal cashTendered = new BigDecimal(text).setScale(2, RoundingMode.HALF_UP);
+            BigDecimal change = cashTendered.subtract(total);
+            if (change.compareTo(BigDecimal.ZERO) >= 0) {
+                lblChangeVal.setText(String.format("$%.2f", change.doubleValue()));
+                lblChangeVal.setForeground(new java.awt.Color(5, 150, 105)); // Emerald
+            } else {
+                lblChangeVal.setText(String.format("-$%.2f", change.abs().doubleValue()));
+                lblChangeVal.setForeground(new java.awt.Color(220, 38, 38)); // Deficit
+            }
+        } catch (NumberFormatException ignored) {
+            lblChangeVal.setText("Invalid");
+            lblChangeVal.setForeground(new java.awt.Color(220, 38, 38));
+        }
     }
 
     /**
@@ -164,6 +222,12 @@ public class POSBillingFrame extends javax.swing.JFrame {
         lblTaxVal = new javax.swing.JLabel();
         lblTotalText = new javax.swing.JLabel();
         lblTotalVal = new javax.swing.JLabel();
+        lblPaymentMethod = new javax.swing.JLabel();
+        comboPaymentMethod = new javax.swing.JComboBox<>();
+        lblCashReceived = new javax.swing.JLabel();
+        txtCashReceived = new javax.swing.JTextField();
+        lblChangeText = new javax.swing.JLabel();
+        lblChangeVal = new javax.swing.JLabel();
         btnCheckout = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
         lblBackground = new javax.swing.JLabel();
@@ -180,7 +244,6 @@ public class POSBillingFrame extends javax.swing.JFrame {
         lblHeaderIcon.setFont(new java.awt.Font("Segoe UI Emoji", 1, 28)); // NOI18N
         lblHeaderIcon.setForeground(new java.awt.Color(242, 100, 25));
         lblHeaderIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblHeaderIcon.setText("🐾");
         headerPanel.add(lblHeaderIcon);
         lblHeaderIcon.setBounds(35, 18, 45, 48);
 
@@ -221,7 +284,7 @@ public class POSBillingFrame extends javax.swing.JFrame {
         btnPOSSearch.setBackground(new java.awt.Color(5, 150, 105));
         btnPOSSearch.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnPOSSearch.setForeground(new java.awt.Color(255, 255, 255));
-        btnPOSSearch.setText("🔍 Find");
+        btnPOSSearch.setText("Find");
         btnPOSSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPOSSearchActionPerformed(evt);
@@ -256,7 +319,7 @@ public class POSBillingFrame extends javax.swing.JFrame {
         btnAddToCart.setBackground(new java.awt.Color(15, 76, 92));
         btnAddToCart.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         btnAddToCart.setForeground(new java.awt.Color(255, 255, 255));
-        btnAddToCart.setText("➕ Add Selected Item to Cart");
+        btnAddToCart.setText("Add Selected Item to Cart");
         btnAddToCart.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddToCartActionPerformed(evt);
@@ -280,7 +343,7 @@ public class POSBillingFrame extends javax.swing.JFrame {
 
         btnClearCart.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnClearCart.setForeground(new java.awt.Color(242, 100, 25));
-        btnClearCart.setText("🗑 Empty Cart");
+        btnClearCart.setText("Clear Cart");
         btnClearCart.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnClearCartActionPerformed(evt);
@@ -310,7 +373,7 @@ public class POSBillingFrame extends javax.swing.JFrame {
         scrollCart.setViewportView(tblCart);
 
         cartCard.add(scrollCart);
-        scrollCart.setBounds(20, 48, 460, 255);
+        scrollCart.setBounds(20, 48, 460, 155);
 
         summaryPanel.setBackground(new java.awt.Color(250, 247, 242));
         summaryPanel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(226, 217, 204), 1, true));
@@ -320,60 +383,104 @@ public class POSBillingFrame extends javax.swing.JFrame {
         lblSubtotalText.setForeground(new java.awt.Color(16, 34, 56));
         lblSubtotalText.setText("Subtotal:");
         summaryPanel.add(lblSubtotalText);
-        lblSubtotalText.setBounds(20, 12, 120, 20);
+        lblSubtotalText.setBounds(20, 10, 120, 20);
 
         lblSubtotalVal.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         lblSubtotalVal.setForeground(new java.awt.Color(16, 34, 56));
         lblSubtotalVal.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblSubtotalVal.setText("$0.00");
         summaryPanel.add(lblSubtotalVal);
-        lblSubtotalVal.setBounds(300, 12, 140, 20);
+        lblSubtotalVal.setBounds(280, 10, 160, 20);
 
         lblTaxText.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         lblTaxText.setForeground(new java.awt.Color(16, 34, 56));
         lblTaxText.setText("Tax (8%):");
         summaryPanel.add(lblTaxText);
-        lblTaxText.setBounds(20, 40, 120, 20);
+        lblTaxText.setBounds(20, 32, 120, 20);
 
         lblTaxVal.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         lblTaxVal.setForeground(new java.awt.Color(16, 34, 56));
         lblTaxVal.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblTaxVal.setText("$0.00");
         summaryPanel.add(lblTaxVal);
-        lblTaxVal.setBounds(300, 40, 140, 20);
+        lblTaxVal.setBounds(280, 32, 160, 20);
 
-        lblTotalText.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        lblTotalText.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         lblTotalText.setForeground(new java.awt.Color(15, 76, 92));
         lblTotalText.setText("Total Due:");
         summaryPanel.add(lblTotalText);
-        lblTotalText.setBounds(20, 75, 120, 28);
+        lblTotalText.setBounds(20, 55, 120, 26);
 
-        lblTotalVal.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        lblTotalVal.setFont(new java.awt.Font("Segoe UI", 1, 19)); // NOI18N
         lblTotalVal.setForeground(new java.awt.Color(5, 150, 105));
         lblTotalVal.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblTotalVal.setText("$0.00");
         summaryPanel.add(lblTotalVal);
-        lblTotalVal.setBounds(260, 72, 180, 32);
+        lblTotalVal.setBounds(260, 53, 180, 28);
+
+        lblPaymentMethod.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        lblPaymentMethod.setForeground(new java.awt.Color(16, 34, 56));
+        lblPaymentMethod.setText("Payment Method:");
+        summaryPanel.add(lblPaymentMethod);
+        lblPaymentMethod.setBounds(20, 87, 140, 26);
+
+        comboPaymentMethod.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        comboPaymentMethod.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cash", "Credit Card", "Debit Card", "Mobile Payment" }));
+        comboPaymentMethod.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboPaymentMethodActionPerformed(evt);
+            }
+        });
+        summaryPanel.add(comboPaymentMethod);
+        comboPaymentMethod.setBounds(170, 85, 270, 28);
+
+        lblCashReceived.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        lblCashReceived.setForeground(new java.awt.Color(16, 34, 56));
+        lblCashReceived.setText("Cash Tendered ($):");
+        summaryPanel.add(lblCashReceived);
+        lblCashReceived.setBounds(20, 121, 140, 26);
+
+        txtCashReceived.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        txtCashReceived.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCashReceivedKeyReleased(evt);
+            }
+        });
+        summaryPanel.add(txtCashReceived);
+        txtCashReceived.setBounds(170, 119, 270, 28);
+
+        lblChangeText.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblChangeText.setForeground(new java.awt.Color(15, 76, 92));
+        lblChangeText.setText("Change Due:");
+        summaryPanel.add(lblChangeText);
+        lblChangeText.setBounds(20, 155, 140, 26);
+
+        lblChangeVal.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblChangeVal.setForeground(new java.awt.Color(5, 150, 105));
+        lblChangeVal.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblChangeVal.setText("$0.00");
+        summaryPanel.add(lblChangeVal);
+        lblChangeVal.setBounds(260, 153, 180, 28);
 
         cartCard.add(summaryPanel);
-        summaryPanel.setBounds(20, 315, 460, 120);
+        summaryPanel.setBounds(20, 212, 460, 224);
 
         btnCheckout.setBackground(new java.awt.Color(5, 150, 105));
         btnCheckout.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnCheckout.setForeground(new java.awt.Color(255, 255, 255));
-        btnCheckout.setText("✔ Complete Sale & Print Receipt");
+        btnCheckout.setText("Complete Sale & Print Receipt");
         btnCheckout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCheckoutActionPerformed(evt);
             }
         });
         cartCard.add(btnCheckout);
-        btnCheckout.setBounds(20, 445, 460, 45);
+        btnCheckout.setBounds(20, 446, 460, 45);
 
         btnBack.setBackground(new java.awt.Color(251, 139, 36));
         btnBack.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         btnBack.setForeground(new java.awt.Color(255, 255, 255));
-        btnBack.setText("⬅ Close POS Terminal");
+        btnBack.setText("Close POS Terminal");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBackActionPerformed(evt);
@@ -457,10 +564,92 @@ public class POSBillingFrame extends javax.swing.JFrame {
         updateCartDisplay();
     }//GEN-LAST:event_btnClearCartActionPerformed
 
+    private void comboPaymentMethodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboPaymentMethodActionPerformed
+        String method = (String) comboPaymentMethod.getSelectedItem();
+        boolean isCash = "Cash".equalsIgnoreCase(method);
+        lblCashReceived.setEnabled(isCash);
+        txtCashReceived.setEnabled(isCash);
+        txtCashReceived.setEditable(isCash);
+        lblChangeText.setEnabled(isCash);
+        lblChangeVal.setEnabled(isCash);
+
+        if (!isCash) {
+            txtCashReceived.setText("N/A - " + method);
+            lblChangeVal.setText("$0.00");
+            lblChangeVal.setForeground(PawMartTheme.TEXT_MUTED);
+        } else {
+            txtCashReceived.setText("");
+            updateChangeCalculation();
+            txtCashReceived.requestFocus();
+        }
+    }//GEN-LAST:event_comboPaymentMethodActionPerformed
+
+    private void txtCashReceivedKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCashReceivedKeyReleased
+        updateChangeCalculation();
+    }//GEN-LAST:event_txtCashReceivedKeyReleased
+
     private void btnCheckoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckoutActionPerformed
         if (cartItems.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "The shopping cart is empty. Add products before checking out.", "Empty Cart", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this,
+                "The shopping cart is empty. Please add pet supplies before checkout.",
+                "Empty Cart",
+                JOptionPane.WARNING_MESSAGE);
             return;
+        }
+
+        String selectedMethod = (String) comboPaymentMethod.getSelectedItem();
+        if (selectedMethod == null || selectedMethod.trim().isEmpty()) {
+            selectedMethod = "Cash";
+        }
+        String dbPaymentMethod = PawMartTheme.toDbPaymentMethod(selectedMethod);
+
+        BigDecimal subtotal = calculateSubtotal();
+        BigDecimal tax = calculateTax(subtotal);
+        BigDecimal grandTotal = subtotal.add(tax);
+
+        BigDecimal cashReceived = null;
+        BigDecimal changeDue = null;
+
+        if ("CASH".equalsIgnoreCase(dbPaymentMethod)) {
+            String cashText = txtCashReceived.getText().trim();
+            if (cashText.isEmpty()) {
+                JOptionPane.showMessageDialog(this,
+                    "Please enter the cash amount tendered by the customer.",
+                    "Cash Tendered Required",
+                    JOptionPane.WARNING_MESSAGE);
+                txtCashReceived.requestFocus();
+                return;
+            }
+
+            try {
+                cashReceived = new BigDecimal(cashText).setScale(2, RoundingMode.HALF_UP);
+                if (cashReceived.compareTo(BigDecimal.ZERO) <= 0) {
+                    JOptionPane.showMessageDialog(this,
+                        "Cash tendered must be greater than zero.",
+                        "Invalid Cash Amount",
+                        JOptionPane.ERROR_MESSAGE);
+                    txtCashReceived.requestFocus();
+                    return;
+                }
+                if (cashReceived.compareTo(grandTotal) < 0) {
+                    BigDecimal deficit = grandTotal.subtract(cashReceived);
+                    JOptionPane.showMessageDialog(this,
+                        String.format("Insufficient cash received!\nGrand Total: $%.2f\nCash Tendered: $%.2f\nShortage: $%.2f",
+                            grandTotal.doubleValue(), cashReceived.doubleValue(), deficit.doubleValue()),
+                        "Insufficient Payment",
+                        JOptionPane.ERROR_MESSAGE);
+                    txtCashReceived.requestFocus();
+                    return;
+                }
+                changeDue = cashReceived.subtract(grandTotal).setScale(2, RoundingMode.HALF_UP);
+            } catch (NumberFormatException nfe) {
+                JOptionPane.showMessageDialog(this,
+                    "Invalid cash amount entered. Please enter a valid numerical dollar amount.",
+                    "Format Error",
+                    JOptionPane.ERROR_MESSAGE);
+                txtCashReceived.requestFocus();
+                return;
+            }
         }
 
         User current = AuthService.getInstance().getCurrentUser();
@@ -469,21 +658,44 @@ public class POSBillingFrame extends javax.swing.JFrame {
         }
 
         try {
-            Sale completedSale = checkoutService.processCheckout(current, cartItems, BigDecimal.ZERO, "CASH");
-            JOptionPane.showMessageDialog(this,
-                "✓ Sale completed successfully!\nReceipt Number: " + completedSale.getReceiptNumber() + "\nTotal: $" + completedSale.getGrandTotal(),
-                "Checkout Completed",
-                JOptionPane.INFORMATION_MESSAGE);
+            Sale completedSale = checkoutService.processCheckout(current, cartItems, BigDecimal.ZERO, dbPaymentMethod);
+            if (cashReceived != null) {
+                completedSale.setAmountReceived(cashReceived);
+                completedSale.setChangeAmount(changeDue);
+            }
+
+            String successMsg;
+            if ("CASH".equalsIgnoreCase(dbPaymentMethod)) {
+                successMsg = String.format(
+                    "✓ Transaction Completed Successfully!\n\nReceipt Number: %s\nPayment Method: %s\nTotal Due: $%.2f\nCash Tendered: $%.2f\nChange Due: $%.2f",
+                    completedSale.getReceiptNumber(),
+                    PawMartTheme.formatPaymentMethod(dbPaymentMethod),
+                    completedSale.getGrandTotal().doubleValue(),
+                    cashReceived.doubleValue(),
+                    changeDue.doubleValue()
+                );
+            } else {
+                successMsg = String.format(
+                    "✓ Transaction Completed Successfully!\n\nReceipt Number: %s\nPayment Method: %s\nTotal Paid: $%.2f",
+                    completedSale.getReceiptNumber(),
+                    PawMartTheme.formatPaymentMethod(dbPaymentMethod),
+                    completedSale.getGrandTotal().doubleValue()
+                );
+            }
+
+            JOptionPane.showMessageDialog(this, successMsg, "Checkout Completed", JOptionPane.INFORMATION_MESSAGE);
 
             // Open Receipt Preview
             ReceiptPreviewDialog dialog = new ReceiptPreviewDialog(this, completedSale);
             dialog.setVisible(true);
 
             cartItems.clear();
+            txtCashReceived.setText("");
+            lblChangeVal.setText("$0.00");
             updateCartDisplay();
             loadCatalog();
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Checkout error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Checkout error: " + ex.getMessage(), "Transaction Failed", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnCheckoutActionPerformed
 
@@ -511,13 +723,18 @@ public class POSBillingFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnPOSSearch;
     private javax.swing.JPanel cartCard;
     private javax.swing.JPanel catalogCard;
+    private javax.swing.JComboBox<String> comboPaymentMethod;
     private javax.swing.JPanel headerPanel;
     private javax.swing.JLabel lblBackground;
     private javax.swing.JLabel lblCartHeader;
+    private javax.swing.JLabel lblCashReceived;
     private javax.swing.JLabel lblCatalogHeader;
+    private javax.swing.JLabel lblChangeText;
+    private javax.swing.JLabel lblChangeVal;
     private javax.swing.JLabel lblHeaderIcon;
     private javax.swing.JLabel lblHeaderSub;
     private javax.swing.JLabel lblHeaderTitle;
+    private javax.swing.JLabel lblPaymentMethod;
     private javax.swing.JLabel lblSubtotalText;
     private javax.swing.JLabel lblSubtotalVal;
     private javax.swing.JLabel lblTaxText;
@@ -529,6 +746,7 @@ public class POSBillingFrame extends javax.swing.JFrame {
     private javax.swing.JPanel summaryPanel;
     private javax.swing.JTable tblCart;
     private javax.swing.JTable tblCatalogPOS;
+    private javax.swing.JTextField txtCashReceived;
     private javax.swing.JTextField txtSearchPOS;
     // End of variables declaration//GEN-END:variables
 }

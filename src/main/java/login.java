@@ -17,19 +17,23 @@ public class login extends javax.swing.JFrame {
         PawMartTheme.setupFlatLaf();
         initComponents();
         panelLeft.setOpaque(false);
-        setSize(840, 540);
+        setSize(860, 570);
         setLocationRelativeTo(null);
 
         // Scaled background photography
         PawMartTheme.applyScaledBackground(lblBackground, "/images/backgrounds/login_background.jpg");
-        lblBackground.setBounds(0, 0, 840, 540);
+        lblBackground.setBounds(0, 0, 860, 570);
+
+        // Paw vector brand logo
+        lblBrandLogo.setText("");
+        lblBrandLogo.setIcon(PawMartTheme.createPawIcon(40, 40, PawMartTheme.ORANGE_ACCENT));
 
         // Translucent cards and buttons styling
         PawMartTheme.styleTranslucentCard(panelRight, 20, new java.awt.Color(255, 255, 255, 240), PawMartTheme.CARD_BORDER);
         PawMartTheme.styleTranslucentCard(panelDemoInfo, 16, new java.awt.Color(10, 51, 62, 235), PawMartTheme.TEAL_PRIMARY);
         PawMartTheme.styleButton(btnLogin, PawMartTheme.EMERALD_PRIMARY, java.awt.Color.WHITE, 12);
         PawMartTheme.styleButton(btnClear, java.awt.Color.WHITE, PawMartTheme.TEAL_PRIMARY, 12);
-        panelRight.setBounds(370, 30, 430, 480);
+        panelRight.setBounds(380, 25, 430, 470);
     }
 
     /**
@@ -80,7 +84,7 @@ public class login extends javax.swing.JFrame {
         lblBrandLogo.setFont(new java.awt.Font("Segoe UI Emoji", 1, 42)); // NOI18N
         lblBrandLogo.setForeground(new java.awt.Color(242, 100, 25));
         lblBrandLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblBrandLogo.setText("🐾");
+        lblBrandLogo.setText("");
         panelLeft.add(lblBrandLogo);
         lblBrandLogo.setBounds(35, 10, 260, 50);
 
@@ -137,7 +141,7 @@ public class login extends javax.swing.JFrame {
 
         lblSecured.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         lblSecured.setForeground(new java.awt.Color(160, 174, 192));
-        lblSecured.setText("🔒 BCrypt Encrypted Passwords");
+        lblSecured.setText("BCrypt Encrypted Passwords");
         panelDemoInfo.add(lblSecured);
         lblSecured.setBounds(15, 150, 260, 18);
 

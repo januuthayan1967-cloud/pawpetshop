@@ -37,6 +37,9 @@ public class Updatepetsupplies extends javax.swing.JFrame {
         PawMartTheme.styleTranslucentCard(formCard, 22, new java.awt.Color(255, 255, 255, 238), PawMartTheme.CARD_BORDER);
         formCard.setBounds(170, 105, 720, 520);
 
+        lblHeaderIcon.setIcon(PawMartTheme.createPawIcon(32, 32, PawMartTheme.ORANGE_ACCENT));
+        lblHeaderIcon.setText("");
+
         // Action Buttons
         PawMartTheme.styleButton(btnUpdate, PawMartTheme.EMERALD_PRIMARY, java.awt.Color.WHITE, 12);
         PawMartTheme.styleButton(btnDeactivate, PawMartTheme.STATUS_DANGER, java.awt.Color.WHITE, 12);
@@ -140,7 +143,7 @@ public class Updatepetsupplies extends javax.swing.JFrame {
         lblHeaderIcon.setFont(new java.awt.Font("Segoe UI Emoji", 1, 26)); // NOI18N
         lblHeaderIcon.setForeground(new java.awt.Color(242, 100, 25));
         lblHeaderIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblHeaderIcon.setText("🐾");
+        lblHeaderIcon.setText("");
         headerPanel.add(lblHeaderIcon);
         lblHeaderIcon.setBounds(25, 18, 50, 48);
 
@@ -242,7 +245,7 @@ public class Updatepetsupplies extends javax.swing.JFrame {
         btnUpdate.setBackground(new java.awt.Color(5, 150, 105));
         btnUpdate.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnUpdate.setForeground(new java.awt.Color(255, 255, 255));
-        btnUpdate.setText("💾 Update Supply");
+        btnUpdate.setText("Update Supply");
         btnUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnUpdateActionPerformed(evt);
@@ -254,7 +257,7 @@ public class Updatepetsupplies extends javax.swing.JFrame {
         btnDeactivate.setBackground(new java.awt.Color(255, 255, 255));
         btnDeactivate.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         btnDeactivate.setForeground(new java.awt.Color(242, 100, 25));
-        btnDeactivate.setText("🗑 Deactivate");
+        btnDeactivate.setText("Deactivate");
         btnDeactivate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDeactivateActionPerformed(evt);
@@ -266,7 +269,7 @@ public class Updatepetsupplies extends javax.swing.JFrame {
         btnBack.setBackground(new java.awt.Color(242, 100, 25));
         btnBack.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnBack.setForeground(new java.awt.Color(255, 255, 255));
-        btnBack.setText("⬅ Back to Manager");
+        btnBack.setText("Back to Manager");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBackActionPerformed(evt);
